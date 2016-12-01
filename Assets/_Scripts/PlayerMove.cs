@@ -4,18 +4,28 @@ using System.Collections;
 
 public class PlayerMove : MonoBehaviour
 {
-    public GameObject player;
-    private Collider[] dynamic;
+	private GameObject player;
+	private Collider[] dynamic;
     private Vector3 prev_to = Vector3.zero;
 
-    public void moveTo(Vector3 to)
+	public GameObject Player {
+		get {
+			return player;
+		}
+
+		set {
+			player = value;
+		}
+	}
+
+	public void moveTo(Vector3 to)
     {       
-        player.transform.position += to;
+        Player.transform.position += to;
     }
 
     public void LocalPlanner(Vector3 to)
     {
-        Vector3 origin = player.transform.position;
+        Vector3 origin = Player.transform.position;
         float radius = 400.0f;
         int dynamic_count = 0;
 
@@ -30,13 +40,13 @@ public class PlayerMove : MonoBehaviour
 
         if (dynamic_count == 0)
         {
-            player.transform.position = Vector3.MoveTowards(player.transform.position, to, 50.0f);
-            Debug.DrawLine(player.transform.position, to, Color.black, 100.0f);
+            Player.transform.position = Vector3.MoveTowards(Player.transform.position, to, 50.0f);
+            Debug.DrawLine(Player.transform.position, to, Color.black, 100.0f);
         }
         else
         {
-            player.transform.position = Vector3.MoveTowards(player.transform.position, to, -20.0f);
-            Debug.DrawLine(to,player.transform.position, Color.red, 100.0f);
+            Player.transform.position = Vector3.MoveTowards(Player.transform.position, to, -20.0f);
+            Debug.DrawLine(to,Player.transform.position, Color.red, 100.0f);
         }
     }
 }
